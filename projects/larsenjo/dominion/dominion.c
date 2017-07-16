@@ -5,7 +5,8 @@
 #include <math.h>
 #include <stdlib.h>
 
-int compare(const void* a, const void* b) {
+int compare(const void* a, const void* b) 
+{
   if (*(int*)a > *(int*)b)
     return 1;
   if (*(int*)a < *(int*)b)
@@ -13,13 +14,15 @@ int compare(const void* a, const void* b) {
   return 0;
 }
 
-struct gameState* newGame() {
+struct gameState* newGame() 
+{
   struct gameState* g = malloc(sizeof(struct gameState));
   return g;
 }
 
 int* kingdomCards(int k1, int k2, int k3, int k4, int k5, int k6, int k7,
-		  int k8, int k9, int k10) {
+		  int k8, int k9, int k10) 
+{
   int* k = malloc(10 * sizeof(int));
   k[0] = k1;
   k[1] = k2;
@@ -35,7 +38,8 @@ int* kingdomCards(int k1, int k2, int k3, int k4, int k5, int k6, int k7,
 }
 
 int initializeGame(int numPlayers, int kingdomCards[10], int randomSeed,
-		   struct gameState *state) {
+		   struct gameState *state) 
+{
 
   int i;
   int j;
@@ -198,7 +202,8 @@ int initializeGame(int numPlayers, int kingdomCards[10], int randomSeed,
   return 0;
 }
 
-int shuffle(int player, struct gameState *state) {
+int shuffle(int player, struct gameState *state) 
+{
  
 
   int newDeck[MAX_DECK];
@@ -269,7 +274,8 @@ int playCard(int handPos, int choice1, int choice2, int choice3, struct gameStat
   return 0;
 }
 
-int buyCard(int supplyPos, struct gameState *state) {
+int buyCard(int supplyPos, struct gameState *state) 
+{
   int who;
   if (DEBUG){
     printf("Entering buyCard...\n");
@@ -308,16 +314,19 @@ int buyCard(int supplyPos, struct gameState *state) {
   return 0;
 }
 
-int numHandCards(struct gameState *state) {
+int numHandCards(struct gameState *state) 
+{
   return state->handCount[ whoseTurn(state) ];
 }
 
-int handCard(int handPos, struct gameState *state) {
+int handCard(int handPos, struct gameState *state) 
+{
   int currentPlayer = whoseTurn(state);
   return state->hand[currentPlayer][handPos];
 }
 
-int supplyCount(int card, struct gameState *state) {
+int supplyCount(int card, struct gameState *state) 
+{
   return state->supplyCount[card];
 }
 
@@ -344,7 +353,8 @@ int fullDeckCount(int player, int card, struct gameState *state)
   return count;
 }
 
-int whoseTurn(struct gameState *state) {
+int whoseTurn(struct gameState *state) 
+{
   return state->whoseTurn;
 }
 
