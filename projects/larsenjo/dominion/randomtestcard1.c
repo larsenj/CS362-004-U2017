@@ -1,5 +1,5 @@
 /*
- * randomtestcard1.c
+ * cardtest2.c
  */
 
 #include "dominion.h"
@@ -9,9 +9,11 @@
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 int main(int argc, char* argv[])
 {
+
 /*
 int smith(int currentPlayer, struct gameState *state, int handPos)
 {
@@ -27,6 +29,7 @@ int smith(int currentPlayer, struct gameState *state, int handPos)
     discardCard(handPos, currentPlayer, state, 0);
 }
 */
+    srand(time(NULL));
 
     struct gameState* g = malloc(sizeof(struct gameState));
     struct gameState* test = malloc(sizeof(struct gameState));
@@ -38,31 +41,52 @@ int smith(int currentPlayer, struct gameState *state, int handPos)
 
 //int initializeGame(int numPlayers, int kingdomCards[10], int randomSeed,
 //		   struct gameState *state);
+    int numPlayers;
+    do
+    {
+       numPlayers = rand() % 100;
+    } while (numPlayers < 2);
+    int randomSeed = rand() % 9999 + 1;    
+    
+    fprintf(stderr, "numPlayers: %d, randomSeed: %d\n", numPlayers, randomSeed);
 
-    initializeGame(2, k, 2, g);
+    initializeGame(numPlayers, k, randomSeed, g);
     memcpy(test, g, sizeof(struct gameState));
 
-    int handPos = 0;
-//int smith(int currentPlayer, struct gameState *state, int handPos)
-    if( smith(0, g, handPos) != 0)
-        fprintf(stderr,"Bad return value\n");
+    int handPos = rand() % 1000;
+    int currentPlayer;
+    do
+    {
+        currentPlayer = rand() % 100;
+    } while (currentPlayer > numPlayers);
 
+//int smith(int currentPlayer, struct gameState *state, int handPos)
+    if( smith(currentPlayer, g, handPos) != 0)
+        fprintf(stderr,"Bad return value\n");
+    else
+        fprintf(stderr,"Good return value\n");
     //test the hand count is 3 drawn, 1 discarded
-    if(g->handCount[0] == test->handCount[0]+2)
+    if(g->handCount[currentPlayer] == test->handCount[currentPlayer]+2)
         fprintf(stderr,"Test 1 passed\n");
     else
         fprintf(stderr,"Incorrect handCount: is %d, should be %d\n", 
-            g->handCount[0], test->handCount[0]+2);
+            g->handCount[currentPlayer], test->handCount[currentPlayer]+2);
 
     //test that deck count was decremented by 3
-    if(g->deckCount[0] == test->deckCount[0]-3)
+    if(g->deckCount[currentPlayer] == test->deckCount[currentPlayer]-3)
         fprintf(stderr,"Test 2 passed\n");
     else
         fprintf(stderr,"Incorrect deckCount: is %d, should be %d\n",
-            g->deckCount[0], test->deckCount[0]-3);
+            g->deckCount[currentPlayer], test->deckCount[currentPlayer]-3);
+    
+    int secondPlayer;
+    do
+    {
+        secondPlayer = rand() % 100;
+    } while (secondPlayer == currentPlayer || secondPlayer > numPlayers);
 
     //test that othe player not changed
-    if(g->handCount[2] == test->handCount[2])
+    if(g->handCount[secondPlayer] == test->handCount[secondPlayer])
         fprintf(stderr,"Test 3 passed\n");
     else
         fprintf(stderr,"Other player inappropriately affected\n");
@@ -74,5 +98,4 @@ int smith(int currentPlayer, struct gameState *state, int handPos)
         fprintf(stderr,"Trash flag error\n");
 
     fprintf(stderr, "********smith() tests complete********\n\n");
-
-}
+}//end main

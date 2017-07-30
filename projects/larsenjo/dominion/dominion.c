@@ -661,7 +661,8 @@ int getCost(int cardNumber)
 int advent(int drawntreasure, struct gameState *state, int currentPlayer, 
     int temphand[], int cardDrawn, int z)
 {        
-    while(drawntreasure<2)
+    //while(drawntreasure<2)
+    while(drawntreasure<4)
     {
 	    if (state->deckCount[currentPlayer] <1)
         {//if the deck is empty we need to shuffle discard and add to deck
@@ -685,10 +686,11 @@ int advent(int drawntreasure, struct gameState *state, int currentPlayer,
 	    z=z-1;
     }
     
-    int x = 1;
-    int y = 0;
+    //int x = 1;
+    //int y = 0;
 
-    return x/y;
+    //return x/y;
+    return 0;
 }
 
 int smith(int currentPlayer, struct gameState *state, int handPos)
