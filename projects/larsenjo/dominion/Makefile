@@ -43,7 +43,7 @@ randomtestadventurer.out: all randomtestadventurer
 	grep -e "function advent" dominion.c.gcov >> randomtestadventurer.out
 	#cat dominion.c.gcov >> randomtestadventurer.out
 
-randomtestresults: all $(RANDTESTS) runRandTests
+#randomtestresults: all $(RANDTESTS) runRandTests
 
 test1: unittest1.c dominion.o rngs.o
 	gcc -o unittest1 -g  unittest1.c dominion.o rngs.o $(CFLAGS)
