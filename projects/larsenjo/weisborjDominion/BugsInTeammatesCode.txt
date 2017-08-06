@@ -1,0 +1,143 @@
+BugsInTeammateCode.txt
+
+Bugs were found in the adventurer card function and the smith card function.
+
+Adventurer: Unit tests 1, 3, and 4 failed. These are checks on the player’s 
+handcount, the other player’s handcount, and the discarding of card. The random 
+test lead to a segmentation fault. Because the function had so many issues the 
+problem would most likely be something very noticeable, so I ran the unit test 
+with GBD and set the breakpoint to the function using 
+“break dominion.c: adventurer_effect” so that it would break at the card 
+function. The just stepping through the function, occasionally printing 
+variables, I found that the endState function was called within the adventurer 
+function, which should not happen - this function call within the adventurer 
+function should be removed.
+
+Smith: Unit and random tests for the hand count and trash flag failed, 
+indicating an issue with either drawing or discarding cards. Similar to with the 
+adventurer card, I ran gdb and set the breakpoint to the corresponding function 
+within the dominion.c file. Running through the code step-by-step first to see 
+if there was anything that stood out, there was, in fact, something that stood 
+out: the discardCard function was not called when it should have been. The 
+discardCard function should be reintroduced into the code for this card’s 
+function.
+
+./unittest1 
+********Testing whoseTurn()********
+Test 1 passed
+Test 2 passed
+Test 3 passed
+Function allows excessively high values
+Function allows negative values
+Function allows letters
+Function allows strings
+********whoseTurn() tests complete********
+
+./unittest2
+********Testing supplyCount()********
+Test 1 passed
+Test 2 passed
+Test 3 passed
+Test 4 passed
+Test 5 passed
+********supplyCount() tests complete********
+
+./unittest3
+********Testing getCost()********
+Test 1 passed
+Test 2 passed
+Test 3 passed
+Test 4 passed
+Test 5 passed
+Test 6 passed
+Test 7 passed
+Test 8 passed
+Test 9 passed
+Test 10 passed
+Test 11 passed
+Test 12 passed
+Test 13 passed
+Test 14 passed
+Test 15 passed
+Test 16 passed
+Test 17 passed
+Test 18 passed
+Test 19 passed
+Test 20 passed
+Test 21 passed
+Test 22 passed
+Test 23 passed
+Test 24 passed
+Test 25 passed
+Test 26 passed
+Test 27 passed
+Test 29 passed
+********getCost() tests complete********
+
+./unittest4
+********Testing isGameOver()********
+Test 1 passed
+Test 2 passed
+Test 3 passed
+********isGameOver() tests complete********
+
+./cardtest1
+********Testing advent()********
+Test 1 failed
+Test 2 passed
+Test 3 failed
+Trash flag error
+********advent() tests complete********
+
+./cardtest2
+********Testing smith()********
+Incorrect handCount: is 8, should be 7
+Test 2 passed
+Test 3 passed
+Trash flag error
+********smith() tests complete********
+
+./cardtest3
+********Testing vill()********
+Test 1 passed
+Test 2 passed
+Test 3 passed
+Test 4 passed
+Test 5 passed
+********vill() tests complete********
+
+./cardtest4
+********Testing greatHall()********
+Test 1 passed
+Test 2 passed
+Test 3 passed
+Test 4 passed
+Test 5 passed
+********greatHall() tests complete********
+
+./randomtestcard1
+********Testing smith()********
+numPlayers: 22, randomSeed: 6991
+Good return value
+Incorrect handCount: is 0, should be 2
+Incorrect deckCount: is 0, should be -3
+Test 3 passed
+Trash flag error
+********smith() tests complete********
+
+./randomtestcard2
+********Testing vill()********
+numPlayers: 32, randomSeed: 3306
+Test 1 passed
+Incorrect deckCount
+Test 3 passed
+Test 4 passed
+Test 5 passed
+********vill() tests complete********
+
+./randomtestadventurer
+********Testing advent()********
+numPlayers: 35, randomSeed: 2910
+cardDrawn: 27, drawnTreasure: 1
+Makefile:108: recipe for target 'assignment5' failed
+make: [assignment5] Segmentation fault (core dumped) (ignored)
