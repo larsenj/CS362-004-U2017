@@ -12,10 +12,15 @@ public class Main
         UrlValidatorTest urlTest = new UrlValidatorTest(a); 
     
         //base test - if "http://www.amazon.com" is valid
+        System.out.print("Base test, http://www.amazon.com : ");
         urlTest.testManualTest();
 
+        //for debugging
+        //urlTest.testYourFirstPartition();
+        //urlTest.testYourSecondPartition();
+        
         //run the tests
-   //     urlTest.testIsValid();
+        urlTest.testIsValid();
 
     }//end main
 

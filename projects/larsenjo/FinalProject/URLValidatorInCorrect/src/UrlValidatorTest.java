@@ -19,9 +19,6 @@
 import junit.framework.TestCase;
 import java.util.Random;
 
-
-
-
 /**
  * Performs Validation Test for url validations.
  *
@@ -29,9 +26,11 @@ import java.util.Random;
  */
 public class UrlValidatorTest extends TestCase 
 {
+    private static int MAX_TESTS = 20;//number of iterations to run of testIsValid
+    private int numParts = 2; //total number of parts
 
-   private boolean printStatus = false;
-   private boolean printIndex = false;//print index that indicates current scheme,host,port,path, query test were using.
+    private boolean printStatus = false;
+    private boolean printIndex = false;//print index that indicates current scheme,host,port,path, query test were using.
 
     //establish the patterns
         //ASCII patterns
@@ -43,8 +42,10 @@ public class UrlValidatorTest extends TestCase
         //schemes
         String validScheme[] = {"http://", "ftp://"}; 
         String invalidScheme[] = {"hppt://", "ftp::/"};
-        //authority
 
+        //authority
+        String validAuthority[] = {"www.google.com", "123.123.123.123"};
+        String invalidAuthority[] = {".abc@", "!@#"};
 
         //path
    
@@ -53,9 +54,11 @@ public class UrlValidatorTest extends TestCase
    
    
         //fragment
-   public UrlValidatorTest(String testName) {
-      super(testName);
-   }
+
+    public UrlValidatorTest(String testName) 
+    {
+        super(testName);
+    }
 
    
    
@@ -70,29 +73,71 @@ public class UrlValidatorTest extends TestCase
    //tests that should pass 
    public void testYourFirstPartition()
    {
-	   
-        
-        Random rand = new Random();
+        //instantiate the validator 
         UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+        
+        //build the url to test from random valid parts
+        String url = "";
+        Random rand = new Random();
+        int scheme = rand.nextInt(validScheme.length);
+        int auth = rand.nextInt(validAuthority.length);
+        url = validScheme[scheme] + validAuthority[auth];
+        
+        //print out the url and test if valid
+        System.out.print(url + " :  ");
+	    System.out.println(urlVal.isValid(url));
+    
    }
 
 
    
    //tests that should fail
-   public void testYourSecondPartition(){
-	   
-        
-        
-        Random rand = new Random();
+   public void testYourSecondPartition()
+   {
+        //instantiate the validator 
         UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+        
+        //build the url to test from random valid parts
+        String url = "";
+        Random rand = new Random();
+        int whichInvalid = rand.nextInt(numParts);
+        int scheme;
+        int auth;
+
+        switch(whichInvalid)
+        {
+            case 0:
+                scheme = rand.nextInt(invalidScheme.length);
+                auth = rand.nextInt(validAuthority.length);
+                url = invalidScheme[scheme] + validAuthority[auth];
+            case 1:
+                scheme = rand.nextInt(validScheme.length);
+                auth = rand.nextInt(invalidAuthority.length);
+                url = validScheme[scheme] + invalidAuthority[auth];
+        }
+        
+        //print out the url and test if valid
+        System.out.print(url + " :  ");
+	    System.out.println(urlVal.isValid(url));
+    
+ 
    }
    
    
    public void testIsValid()
    {
-	   for(int i = 0;i<10000;i++)
-	   {
-		   
+        for(int i = 0;i < MAX_TESTS; i++)
+	    {
+            if (i == 0)
+               System.out.println("***** The folowing URLs should test as valid *****");
+
+            if(i == MAX_TESTS/2)
+               System.out.println("***** The folowing URLs should test as invalid *****");
+
+            if(i < MAX_TESTS/2)
+               testYourFirstPartition();
+            else
+               testYourSecondPartition();
 	   }
    }
    

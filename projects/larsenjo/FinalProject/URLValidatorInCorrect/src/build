@@ -1,6 +1,6 @@
 #!/bin/sh
 
-rm *.class
+rm -f *.class
 
 javac RegexValidator.java -cp ".:/usr/share/java/junit.jar"
 javac DomainValidator.java -cp ".:/usr/share/java/junit.jar" -sourcepath "." 
