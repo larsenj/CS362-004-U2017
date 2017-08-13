@@ -33,6 +33,26 @@ public class UrlValidatorTest extends TestCase
    private boolean printStatus = false;
    private boolean printIndex = false;//print index that indicates current scheme,host,port,path, query test were using.
 
+    //establish the patterns
+        //ASCII patterns
+        
+
+        //URL patterns
+
+
+        //schemes
+        String validScheme[] = {"http://", "ftp://"}; 
+        String invalidScheme[] = {"hppt://", "ftp::/"};
+        //authority
+
+
+        //path
+   
+   
+        //query
+   
+   
+        //fragment
    public UrlValidatorTest(String testName) {
       super(testName);
    }
@@ -50,26 +70,6 @@ public class UrlValidatorTest extends TestCase
    //tests that should pass 
    public void testYourFirstPartition()
    {
-       //establish the valid patterns
-        //ASCII patterns
-        
-
-        //URL patterns
-
-
-        //schemes
-        String validScheme[] = {"http://", "ftp://"}; 
-
-        //authority
-
-
-        //path
-   
-   
-        //query
-   
-   
-        //fragment
 	   
         
         Random rand = new Random();
@@ -81,29 +81,9 @@ public class UrlValidatorTest extends TestCase
    //tests that should fail
    public void testYourSecondPartition(){
 	   
-       //establish the bad patterns
-        //ASCII patterns
-        
-
-        //URL patterns
-
-
-        //schemes
-        String validScheme[] = {"abc://", "123://"}; 
-
-        //authority
-
-
-        //path
-   
-   
-        //query
-   
-   
-        //fragment
-	   
         
         
+        Random rand = new Random();
         UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
    }
    
