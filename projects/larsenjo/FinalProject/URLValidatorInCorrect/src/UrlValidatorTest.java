@@ -17,7 +17,7 @@
 
 
 import junit.framework.TestCase;
-
+import java.util.Random;
 
 
 
@@ -27,7 +27,8 @@ import junit.framework.TestCase;
  *
  * @version $Revision: 1128446 $ $Date: 2011-05-27 13:29:27 -0700 (Fri, 27 May 2011) $
  */
-public class UrlValidatorTest extends TestCase {
+public class UrlValidatorTest extends TestCase 
+{
 
    private boolean printStatus = false;
    private boolean printIndex = false;//print index that indicates current scheme,host,port,path, query test were using.
@@ -46,14 +47,64 @@ public class UrlValidatorTest extends TestCase {
 	   
    }
    
-   
+   //tests that should pass 
    public void testYourFirstPartition()
    {
-	   
-   }
+       //establish the valid patterns
+        //ASCII patterns
+        
+
+        //URL patterns
+
+
+        //schemes
+        String validScheme[] = {"http://", "ftp://"}; 
+
+        //authority
+
+
+        //path
    
+   
+        //query
+   
+   
+        //fragment
+	   
+        
+        Random rand = new Random();
+        UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+   }
+
+
+   
+   //tests that should fail
    public void testYourSecondPartition(){
 	   
+       //establish the bad patterns
+        //ASCII patterns
+        
+
+        //URL patterns
+
+
+        //schemes
+        String validScheme[] = {"abc://", "123://"}; 
+
+        //authority
+
+
+        //path
+   
+   
+        //query
+   
+   
+        //fragment
+	   
+        
+        
+        UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
    }
    
    
