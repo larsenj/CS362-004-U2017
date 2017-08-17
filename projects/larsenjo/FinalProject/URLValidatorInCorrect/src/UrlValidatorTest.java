@@ -45,7 +45,7 @@ public class UrlValidatorTest extends TestCase
 
         //authority
         String validAuthority[] = {"www.google.com", "123.123.123.123"};
-        String invalidAuthority[] = {".abc@", "!@#"};
+        String invalidAuthority[] = {".abc@", "!@#", "123.123.123.400"};
 
         //path
    
