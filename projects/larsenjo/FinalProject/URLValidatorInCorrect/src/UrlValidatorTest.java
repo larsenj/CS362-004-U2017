@@ -66,6 +66,7 @@ public class UrlValidatorTest extends TestCase
    {
 	   UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
 	   System.out.println(urlVal.isValid("http://www.amazon.com"));
+	   System.out.println(urlVal.isValid("http://www.amazon.com:80"));
 	   
 	   
    }
@@ -147,10 +148,10 @@ public class UrlValidatorTest extends TestCase
         for(int i = 0;i < MAX_TESTS; i++)
 	    {
             if (i == 0)
-               System.out.println("***** The folowing URLs should test as valid *****");
+               System.out.println("***** The folowing URLs should test as true *****");
 
             if(i == MAX_TESTS/2)
-               System.out.println("***** The folowing URLs should test as invalid *****");
+               System.out.println("***** The folowing URLs should test as false *****");
 
             if(i < MAX_TESTS/2)
                testYourFirstPartition();
