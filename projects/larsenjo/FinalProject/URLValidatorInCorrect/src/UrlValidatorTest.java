@@ -83,6 +83,14 @@ public class UrlValidatorTest extends TestCase
         int auth = rand.nextInt(validAuthority.length);
         url = validScheme[scheme] + validAuthority[auth];
         
+        //1 in 4 chance of adding a port number to the string
+        if(rand.nextInt(4) == 3)
+        {
+            int port = rand.nextInt(65536);//port number ranges 0-65535
+            //url = url + "/:" + port;
+            url = url + ":" + port;
+        }
+
         //print out the url and test if valid
         System.out.print(url + " :  ");
 	    System.out.println(urlVal.isValid(url));
@@ -100,9 +108,10 @@ public class UrlValidatorTest extends TestCase
         //build the url to test from random valid parts
         String url = "";
         Random rand = new Random();
-        int whichInvalid = rand.nextInt(numParts);
+        int whichInvalid = rand.nextInt(numParts+1);//the "+1" is so ports can be tested
         int scheme;
         int auth;
+        int port;
 
         switch(whichInvalid)
         {
@@ -110,15 +119,24 @@ public class UrlValidatorTest extends TestCase
                 scheme = rand.nextInt(invalidScheme.length);
                 auth = rand.nextInt(validAuthority.length);
                 url = invalidScheme[scheme] + validAuthority[auth];
+                break;
             case 1:
                 scheme = rand.nextInt(validScheme.length);
                 auth = rand.nextInt(invalidAuthority.length);
                 url = validScheme[scheme] + invalidAuthority[auth];
+                break;
+            case 2:
+                scheme = rand.nextInt(validScheme.length);
+                auth = rand.nextInt(validAuthority.length);
+                port = 65535 + rand.nextInt(10000);
+                url = validScheme[scheme] + validAuthority[auth] + ":" + port;
+                break;
         }
         
         //print out the url and test if valid
         System.out.print(url + " :  ");
 	    System.out.println(urlVal.isValid(url));
+	    //assertFalse(urlVal.isValid(url));
     
  
    }
